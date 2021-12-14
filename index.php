@@ -123,17 +123,11 @@ session_start();
         ></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-        <script src="https://unpkg.com/feather-icons"></script>
-        
-        <script>
-            feather.replace();
-        </script>
-
+     
         <!-- Máscara para telefone/celular -->
         <script type="text/javascript">
             $("#telefone, #celular").mask("(00) 00000-0000");
         </script>
-
     </body>
 </html>    
 
