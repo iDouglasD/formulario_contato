@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,13 +17,12 @@
         <title>Formulário de Contato</title>
     </head>
     <body>
-        <?php ?>
         <div class="container">
             <header>
                 <h2>Entre em contato conosco!</h2>
             </header>
             <hr />
-            <form method="POST" action="contato_enviar.php">
+            <form method="POST" action="proc_contato_msg.php">
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="inputNamed4">Nome:</label>
@@ -66,7 +68,7 @@
                             class="form-control"
                             placeholder="(DDD) Número"
                             id="celular"
-                            name="celular"
+                            name="telefone"
                         /><br />
                     </div>
                 </div>
@@ -87,6 +89,16 @@
                 <input name="enviarContato" type="submit" value="Enviar" class="btn btn-success btn-lg">
             </input>
             </form>
+            <div class="msg">
+             <?php
+                
+                if(isset( $_SESSION ['msg'])){
+                    echo  $_SESSION ['msg'];
+                    unset( $_SESSION ['msg']);
+                };
+                
+             ?>
+            </div>
         </div>
     </body>
 </html>
