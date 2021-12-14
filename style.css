@@ -1,0 +1,56 @@
+/* GLOBAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --title-font: "Poppins", sans-serif;
+    --body-font: "DM Sans", sans-serif;
+}
+
+h2 {
+    font: 700 1.8rem var(--title-font);
+    color: #556b2f;
+}
+
+body {
+    font: var(--body-font);
+}
+
+/* FORM */
+.form_contact {
+    padding-top: 2rem;
+}
+
+/* INPUT */
+.form-control.name {
+    background: url(images/user.svg) no-repeat scroll 5px 5px;
+    padding-left: 2.2rem;
+}
+
+.form-control.email {
+    background: url(images/mail.svg) no-repeat scroll 5px 5px;
+    padding-left: 2.2rem;
+}
+
+.form-control.phone {
+    background: url(images/phone.svg) no-repeat scroll 5px 5px;
+    padding-left: 2.2rem;
+}
+
+/* BUTTONS */
+.btn.btn-success.btn-lg {
+    color: #32cd32;
+}
+
+.btn.btn-success.btn-lg:hover {
+    color: #7cfc00;
+    transition: ease-in-out 1s;
+}
+
+.btn.btn-success.btn-lg.send {
+    background: url(images/send.svg) no-repeat scroll 5px 10px;
+    padding-left: 2.2rem;
+}
