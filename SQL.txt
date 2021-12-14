@@ -1,0 +1,79 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Tempo de geração: 14-Dez-2021 às 17:05
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 7.4.26
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Banco de dados: `contato_clientes`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `mensagens_clientes`
+--
+-- Criação: 14-Dez-2021 às 08:04
+--
+
+CREATE TABLE `mensagens_clientes` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(220) NOT NULL,
+  `email` varchar(220) NOT NULL,
+  `assunto` varchar(220) NOT NULL,
+  `telefone` varchar(20) NOT NULL,
+  `mensagem` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `mensagens_clientes`:
+--
+
+--
+-- Extraindo dados da tabela `mensagens_clientes`
+--
+
+INSERT INTO `mensagens_clientes` (`id`, `nome`, `email`, `assunto`, `telefone`, `mensagem`) VALUES
+(1, 'Douglas', 'douglasduarte.eng@gmail.com', 'Reclamação de Curso', '(31) 99536-9895', 'Olá'),
+(8, 'Douglas Duarte', 'douglasduarte_dds@yahoo.com', 'Elogio', '(31) 38925-160', 'Olaaaaaaaaaa!'),
+(9, 'Vitor', 'vitorduarte.vds7@gmail.com', 'Elogio', '(31) 99536-9895', 'aeeeeeeeeeeee!'),
+(10, 'Douglas Duarte Souza', 'douglasduarte.eng@gmail.com', 'Selecione', '(31) 38925-160', 'GAGAGAG'),
+(11, 'Douglas Duarte Souza', 'douglasduarte.eng@gmail.com', 'Reclamação de Software', '(31) 38925-160', 'GHQHWHSH');
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices para tabela `mensagens_clientes`
+--
+ALTER TABLE `mensagens_clientes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `mensagens_clientes`
+--
+ALTER TABLE `mensagens_clientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

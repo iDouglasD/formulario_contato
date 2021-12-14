@@ -14,7 +14,7 @@ if($enviarContato){
     $mensagem = filter_input(INPUT_POST, 'mensagem', FILTER_SANITIZE_STRING);
 
     //Inserir no DB
-   $result_msg_cont = "INSERT INTO mensagens_clientes (nome, email, assunto, telefone, mensagem) VALUES (:nome, :email, :assunto, :telefone, :mensagem)";
+    $result_msg_cont = "INSERT INTO mensagens_clientes (nome, email, assunto, telefone, mensagem) VALUES (:nome, :email, :assunto, :telefone, :mensagem)";
 
     $insert_msg_cont =  $conn->prepare($result_msg_cont);
     $insert_msg_cont->bindParam(':nome', $nome);
@@ -23,17 +23,17 @@ if($enviarContato){
     $insert_msg_cont->bindParam(':telefone', $telefone);
     $insert_msg_cont->bindParam(':mensagem', $mensagem);
 
-   if($insert_msg_cont->execute()){
+    if($insert_msg_cont->execute()){
 
-    $_SESSION['msg'] = "<p style='color:green;'>Mensagem enviada com sucesso</p>";
+    $_SESSION['msg'] = "<p style='color:green;'>Mensagem enviada com sucesso!</p>";
         header("Location: index.php");
 
-   } else{
+    } else{
 
     $_SESSION['msg'] = "<p style='color:red;'>Mensagem não foi enviada com sucesso!</p>";
     header("Location: index.php");
 
-   }
+    }
 } else {
     $_SESSION['msg'] = "<p style='color:red;'>Mensagem não foi enviada com sucesso!</p>";
         header("Location: index.php");

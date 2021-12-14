@@ -54,3 +54,7 @@ body {
     background: url(images/send.svg) no-repeat scroll 5px 10px;
     padding-left: 2.2rem;
 }
+
+.msg {
+    margin: 1rem 0;
+}
