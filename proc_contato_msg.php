@@ -4,7 +4,6 @@ include_once 'conexao.php';
 
 // Verificar se o usuário clicou no botão para enviar
 $enviarContato = filter_input(INPUT_POST, 'enviarContato', FILTER_SANITIZE_STRING);
-
 if($enviarContato){
 
     //Receber os dados do formulário
