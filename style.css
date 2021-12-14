@@ -42,17 +42,12 @@ body {
 
 /* BUTTONS */
 .btn.btn-success.btn-lg {
-    color: #32cd32;
+    color: #ffffff;
 }
 
 .btn.btn-success.btn-lg:hover {
-    color: #7cfc00;
+    background-color: #40e967;
     transition: ease-in-out 1s;
-}
-
-.btn.btn-success.btn-lg.send {
-    background: url(images/send.svg) no-repeat scroll 5px 10px;
-    padding-left: 2.2rem;
 }
 
 .msg {

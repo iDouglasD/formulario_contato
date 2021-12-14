@@ -26,8 +26,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 Utilitários
 
 -   [Bootstrap](https://getbootstrap.com/)
--   [Feather.icons](https://feathericons.com/)
+-   [Google font- Material icons](https://fonts.google.com/icons?selected=Material+Icons+Outlined&icon.query=phone)
 -   [jQuery](https://igorescobar.github.io/jQuery-Mask-Plugin/)
+-   [XAMPP](https://www.apachefriends.org/pt_br/index.html)
 
 ## 💻 Projeto
 

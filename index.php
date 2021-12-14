@@ -91,7 +91,7 @@ session_start();
                             ></textarea>
                         </div>
                     </div>
-                    <input name="enviarContato" type="submit" value="Enviar" class="btn btn-success btn-lg send">
+                    <input name="enviarContato" type="submit" value="Enviar" class="btn btn-success btn-lg">
                     </input>
                 </form>
                 <div class="msg">
@@ -133,7 +133,7 @@ session_start();
         <script type="text/javascript">
             $("#telefone, #celular").mask("(00) 00000-0000");
         </script>
-        
+
     </body>
 </html>    
 
