@@ -91,17 +91,20 @@ session_start();
                             ></textarea>
                         </div>
                     </div>
-                    <input name="enviarContato" type="submit" value="Enviar" class="btn btn-success btn-lg">
+                    <input name="enviarContato" type="submit" value="Enviar" id="btn_sub" class="btn btn-success btn-lg">
                     </input>
                 </form>
                 <div class="msg">
                 <?php
-                    
+                
                     if(isset( $_SESSION ['msg'])){
                         echo  $_SESSION ['msg'];
                         unset( $_SESSION ['msg']);
                     };
-                    
+                    if(isset( $_SESSION ['error'])){
+                        echo  $_SESSION ['error'];
+                        unset( $_SESSION ['error']);
+                    };
                 ?>
                 </div>
             </section>
@@ -124,11 +127,11 @@ session_start();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
      
-        <!-- Máscara para telefone/celular -->
-        <script type="text/javascript">
-            $("#telefone, #celular").mask("(00) 00000-0000");
-        </script>
     </body>
 </html>    
 
+<!-- Máscara para telefone/celular -->
+<script type="text/javascript">
+    $("#telefone, #celular").mask("(00) 00000-0000");
+</script>
 

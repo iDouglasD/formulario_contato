@@ -4,6 +4,7 @@ include_once 'conexao.php';
 
 // Verificar se o usuário clicou no botão para enviar
 $enviarContato = filter_input(INPUT_POST, 'enviarContato', FILTER_SANITIZE_STRING);
+
 if($enviarContato){
 
     //Receber os dados do formulário
@@ -13,8 +14,16 @@ if($enviarContato){
     $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_STRING);
     $mensagem = filter_input(INPUT_POST, 'mensagem', FILTER_SANITIZE_STRING);
 
-    //Inserir no DB
-    $result_msg_cont = "INSERT INTO mensagens_clientes (nome, email, assunto, telefone, mensagem) VALUES (:nome, :email, :assunto, :telefone, :mensagem)";
+    //Verificar se os campos estão vazios
+    if(!empty($nome) && !empty($email) && !empty($assunto) && !empty($telefone) && !empty($mensagem)){
+
+        //Inserir no DB
+        $result_msg_cont = "INSERT INTO mensagens_clientes (nome, email, assunto, telefone, mensagem) VALUES (:nome, :email, :assunto, :telefone, :mensagem)";
+        
+    } else {
+        $_SESSION['error'] = "<p style='color:red;'>Por favor, preencha todos os campos!</p>";
+            header("Location: index.php");
+    };
 
     $insert_msg_cont =  $conn->prepare($result_msg_cont);
     $insert_msg_cont->bindParam(':nome', $nome);
@@ -24,21 +33,19 @@ if($enviarContato){
     $insert_msg_cont->bindParam(':mensagem', $mensagem);
 
     if($insert_msg_cont->execute()){
-
-    $_SESSION['msg'] = "<p style='color:green;'>Mensagem enviada com sucesso!</p>";
+        
+        $_SESSION['msg'] = "<p style='color:green;'>Mensagem enviada com sucesso!</p>";
         header("Location: index.php");
-
+        
     } else{
-
-    $_SESSION['msg'] = "<p style='color:red;'>Mensagem não foi enviada com sucesso!</p>";
-    header("Location: index.php");
-
+        
+        $_SESSION['msg'] = "<p style='color:red;'>Mensagem não foi enviada com sucesso!</p>";
+        header("Location: index.php");
     }
 } else {
     $_SESSION['msg'] = "<p style='color:red;'>Mensagem não foi enviada com sucesso!</p>";
-        header("Location: index.php");
+    header("Location: index.php");
 };
-
 
 
 ?>
