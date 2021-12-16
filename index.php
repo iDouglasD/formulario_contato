@@ -30,8 +30,9 @@ session_start();
                 <form method="POST" action="proc_contato_msg.php">
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="inputNamed4">Nome:</label>
+                            <label for="name">Nome:</label>
                             <input
+                                id="name"
                                 type="text"
                                 class="form-control name"
                                 placeholder="Nome completo"
@@ -43,7 +44,7 @@ session_start();
                             <input
                                 type="email"
                                 class="form-control email"
-                                id="inputEmail4"
+                                id="email"
                                 placeholder="Endereço de email"
                                 name="email"
                             />
@@ -51,9 +52,9 @@ session_start();
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="inputEstado">Assunto:</label>
+                            <label for="assunto">Assunto:</label>
                             <select
-                                id="inputEstado"
+                                id="assunto"
                                 class="form-control"
                                 name="assunto"
                             >
@@ -79,12 +80,12 @@ session_start();
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-8">
-                            <label for="exampleFormControlTextarea1"
+                            <label for="FormControlTextarea"
                                 >Mensagem:</label
                             >
                             <textarea
                                 class="form-control"
-                                id="exampleFormControlTextarea1"
+                                id="FormControlTextarea"
                                 rows="6"
                                 name="mensagem"
                                 placeholder="Escreva a sua mensagem..."
@@ -96,7 +97,7 @@ session_start();
                 </form>
                 <div class="msg">
                 <?php
-                
+
                     if(isset( $_SESSION ['msg'])){
                         echo  $_SESSION ['msg'];
                         unset( $_SESSION ['msg']);
@@ -126,7 +127,6 @@ session_start();
         ></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-     
     </body>
 </html>    
 
