@@ -1,6 +1,9 @@
 <?php
-session_start();
+require_once 'classe_cliente.php';
+$p = new Cliente("127.0.0.1","3308","contato_clientes", "root","");
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,18 +24,36 @@ session_start();
         <title>Formulário de Contato</title>
     </head>
     <body>
+    <?php
+        if(isset($_POST['nome']))
+        {
+            $nome = addslashes($_POST['nome']); 
+            $email= addslashes($_POST['email']);
+            $assunto= addslashes($_POST['assunto']);
+            $telefone= addslashes($_POST['telefone']);
+            $mensagem= addslashes($_POST['mensagem']);
+
+            if(!empty($nome) && !empty($email) && !empty($assunto) && !empty($telefone) && !empty($mensagem))
+            {
+                $p->cadastrarMensagem($nome, $email, $assunto, $telefone, $mensagem);
+
+            } else {
+                echo "Preencha todos os campos!";
+            }
+        }
+    ?>
         <div class="container">
             <section class="form_contact">
                 <header>
                     <h2>Entre em contato conosco!</h2>
                 </header>
                 <hr />
-                <form method="POST" action="proc_contato_msg.php">
+                <form method="POST">
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="name">Nome:</label>
+                            <label for="nome">Nome:</label>
                             <input
-                                id="name"
+                                id="nome"
                                 type="text"
                                 class="form-control name"
                                 placeholder="Nome completo"
@@ -40,7 +61,7 @@ session_start();
                             />
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputEmail4">Email:</label>
+                            <label for="email">Email:</label>
                             <input
                                 type="email"
                                 class="form-control email"
@@ -68,7 +89,7 @@ session_start();
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label>Telefone:</label>
+                            <label for="telefone">Telefone:</label>
                             <input
                                 type="text"
                                 class="form-control phone"
@@ -80,34 +101,63 @@ session_start();
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-8">
-                            <label for="FormControlTextarea"
+                            <label for="mensagem"
                                 >Mensagem:</label
                             >
                             <textarea
                                 class="form-control"
-                                id="FormControlTextarea"
+                                id="mensagem"
                                 rows="6"
                                 name="mensagem"
                                 placeholder="Escreva a sua mensagem..."
                             ></textarea>
                         </div>
                     </div>
-                    <input name="enviarContato" type="submit" value="Enviar" id="btn_sub" class="btn btn-success btn-lg">
-                    </input>
+                    <input type="submit" value="Enviar" id="btn_sub" class="btn btn-success btn-lg">
+                    <button type="button" id="btn_hidden" class="btn btn-secondary btn-lg">Visualizar Mensagens</button>
                 </form>
-                <div class="msg">
-                <?php
-
-                    if(isset( $_SESSION ['msg'])){
-                        echo  $_SESSION ['msg'];
-                        unset( $_SESSION ['msg']);
-                    };
-                    if(isset( $_SESSION ['error'])){
-                        echo  $_SESSION ['error'];
-                        unset( $_SESSION ['error']);
-                    };
-                ?>
-                </div>
+            </section>
+            <br>
+            <section id="lista_contato" class="lista hidden">
+                <header>
+                    <h2>Lista de mensagens!</h2>
+                </header>
+                <hr>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr id="titulo">
+                            <th scope="col">Nome</td>
+                            <th scope="col">Email</td>
+                            <th scope="col">Telefone</td>
+                            <th scope="col">Assunto</td>
+                            <th scope="col" colspan="2">Mensagem</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $dados = $p->buscarMensagens();
+                            if(count($dados) > 0)
+                            {
+                                for($i=0; $i < count($dados); $i++) 
+                                {
+                                    echo "<tr>";
+                                    foreach($dados[$i] as $key => $value){
+                                        if($key != "id")
+                                        {
+                                            echo "<td>".$value."</td>";
+                                        }
+                                    }
+                        ?>
+                                    <td><a class="btn btn-secondary" href="">Editar</a><a class="btn btn-danger" href="">Excluir</a></td>
+                        <?php
+                                    echo "</tr>";
+                                }
+                            }else {
+                                echo "Ainda não há pessoas cadastradas!";
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </section>
         </div>
         <script
@@ -127,11 +177,7 @@ session_start();
         ></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+        <script src="funcoes.js"></script>
     </body>
 </html>    
-
-<!-- Máscara para telefone/celular -->
-<script type="text/javascript">
-    $("#telefone, #celular").mask("(00) 00000-0000");
-</script>
 

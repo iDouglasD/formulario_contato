@@ -12,7 +12,7 @@
 
 h2 {
     font: 700 1.8rem var(--title-font);
-    color: #556b2f;
+    color: #6c757d;
 }
 
 body {
@@ -52,4 +52,12 @@ body {
 
 .msg {
     margin: 1rem 0;
+}
+
+a.btn {
+    margin: 5px 5px;
+}
+
+#lista_contato.hidden {
+    display: none;
 }
