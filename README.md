@@ -10,7 +10,7 @@
 
 <br>
 <p align="center">
-  <img alt="formulario" src="images/form.jpg" width="80%">
+  <img alt="formulário" src="images/form.jpg" width="80%">
 </p>
 
 ## 🚀 Tecnologias
@@ -32,7 +32,7 @@ Utilitários
 
 ## 💻 Projeto
 
-Formulário de contato utilizando HTML, CSS, Bootstrap, PHP, Javascript e conexão ao banco de dados MySQL.
+Formulário de contato com CRUD utilizando HTML, CSS, Bootstrap, PHP, Javascript e conexão ao banco de dados MySQL.
 
 ## 📝 Licença
 
