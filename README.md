@@ -10,7 +10,7 @@
 
 <br>
 <p align="center">
-  <img alt="formulário" src="images/form.jpg" width="80%">
+  <img alt="formulário" src="images/formulario.jpg" width="80%">
 </p>
 
 ## 🚀 Tecnologias
