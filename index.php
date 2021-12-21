@@ -3,7 +3,6 @@ require_once 'classe_cliente.php';
 $p = new Cliente("127.0.0.1","3308","contato_clientes", "root","");
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,28 +23,74 @@ $p = new Cliente("127.0.0.1","3308","contato_clientes", "root","");
         <title>Formulário de Contato</title>
     </head>
     <body>
-    <?php
-        if(isset($_POST['nome']))
-        {
-            $nome = addslashes($_POST['nome']); 
-            $email= addslashes($_POST['email']);
-            $assunto= addslashes($_POST['assunto']);
-            $telefone= addslashes($_POST['telefone']);
-            $mensagem= addslashes($_POST['mensagem']);
-
-            if(!empty($nome) && !empty($email) && !empty($assunto) && !empty($telefone) && !empty($mensagem))
-            {
-                $p->cadastrarMensagem($nome, $email, $assunto, $telefone, $mensagem);
-
-            } else {
-                echo "Preencha todos os campos!";
-            }
-        }
-    ?>
         <div class="container">
+            <!--INSERIR MSG DO CLIENTE NO BANCO DE DADOS-->
+            <?php
+                if(isset($_POST['btn_submit']))
+                {
+                    // EDITAR
+                    if(isset($_GET['id_up']) && !empty($_GET['id_up']))
+                    {
+                        $id_upd = addslashes($_GET['id_up']);
+                        $nome = addslashes($_POST['nome']); 
+                        $email= addslashes($_POST['email']);
+                        $assunto= addslashes($_POST['assunto']);
+                        $telefone= addslashes($_POST['telefone']);
+                        $mensagem= addslashes($_POST['mensagem']);
+    
+                        if(!empty($nome) && !empty($email) && !empty($assunto) && !empty($telefone) && !empty($mensagem))
+                        {
+                            $p->atualizarDados($id_upd,$nome, $email, $assunto, $telefone, $mensagem);
+                            echo "<script language='javascript'>window.location.href='index.php';</script>";
+    
+                        } 
+                        else 
+                        {
+                             ?>
+                            <div class='aviso'>
+                                <img src="images/aviso.svg" alt="Error">
+                                <h5>Não foi possível atualizar, por favor, preencha todos os campos!</h5>
+                            </div>
+                            <?php
+                        }    
+                    }
+                     // CADASTRAR MSG NOVA
+                    else 
+                    {
+                        $nome = addslashes($_POST['nome']); 
+                        $email= addslashes($_POST['email']);
+                        $assunto= addslashes($_POST['assunto']);
+                        $telefone= addslashes($_POST['telefone']);
+                        $mensagem= addslashes($_POST['mensagem']);
+    
+                        if(!empty($nome) && !empty($email) && !empty($assunto) && !empty($telefone) && !empty($mensagem))
+                        {
+                            $p->cadastrarMensagem($nome, $email, $assunto, $telefone, $mensagem);
+    
+                        } 
+                        else 
+                        {
+                            ?>
+                            <div class='aviso'>
+                                <img src="images/aviso.svg" alt="Error">
+                                <h5>Por favor, preencha todos os campos!</h5>
+                            </div>
+                            <?php
+                        }
+                    }    
+                }
+            ?>
+            <!--ATUALIZAR MENSAGEM ENVIADA-->
+            <?php
+                if(isset($_GET['id_up']))
+                {
+                    $id_update = addslashes($_GET['id_up']);
+                    $res = $p->buscarDadosCliente($id_update);
+                }
+            ?>
             <section class="form_contact">
                 <header>
-                    <h2>Entre em contato conosco!</h2>
+                    <h2>Entre em contato conosco</h2>
                 </header>
                 <hr />
                 <form method="POST">
@@ -58,16 +103,18 @@ $p = new Cliente("127.0.0.1","3308","contato_clientes", "root","");
                                 class="form-control name"
                                 placeholder="Nome completo"
                                 name="nome"
+                                value="<?php if(isset($res)){echo $res['nome'];}?>"
                             />
                         </div>
                         <div class="form-group col-md-4">
                             <label for="email">Email:</label>
                             <input
-                                type="email"
                                 class="form-control email"
                                 id="email"
-                                placeholder="Endereço de email"
+                                type="email"
                                 name="email"
+                                placeholder="Endereço de email"
+                                value="<?php if(isset($res)){echo $res['email'];}?>"
                             />
                         </div>
                     </div>
@@ -75,8 +122,8 @@ $p = new Cliente("127.0.0.1","3308","contato_clientes", "root","");
                         <div class="form-group col-md-4">
                             <label for="assunto">Assunto:</label>
                             <select
-                                id="assunto"
                                 class="form-control"
+                                id="assunto"
                                 name="assunto"
                             >
                                 <option selected>Selecione</option>
@@ -96,7 +143,9 @@ $p = new Cliente("127.0.0.1","3308","contato_clientes", "root","");
                                 placeholder="(DDD) número"
                                 id="telefone"
                                 name="telefone"
-                            /><br />
+                                value="<?php if(isset($res)){echo $res['telefone'];}?>"
+                            />
+                            <br/>
                         </div>
                     </div>
                     <div class="form-row">
@@ -110,30 +159,36 @@ $p = new Cliente("127.0.0.1","3308","contato_clientes", "root","");
                                 rows="6"
                                 name="mensagem"
                                 placeholder="Escreva a sua mensagem..."
-                            ></textarea>
+                            ><?php if(isset($res)){echo $res['mensagem'];}?></textarea>
                         </div>
                     </div>
-                    <input type="submit" value="Enviar" id="btn_sub" class="btn btn-success btn-lg">
-                    <button type="button" id="btn_hidden" class="btn btn-secondary btn-lg">Visualizar Mensagens</button>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <input type="button" id="btn_hidden" class="btn_view btn btn-secondary btn-lg" value="Visualizar Mensagens">
+                            <input type="button" id="btn_hidden2" class="btn_hidden btn btn-secondary btn-lg hidden" value="Ocultar Mensagens">
+                            <input type="submit" name="btn_submit" value="<?php if(isset($res)){echo "Atualizar";}else {echo "Enviar";}?>" id="btn_sub" class="btn btn-success btn-lg">
+                        </div>
+                    </div>
                 </form>
             </section>
             <br>
             <section id="lista_contato" class="lista hidden">
                 <header>
-                    <h2>Lista de mensagens!</h2>
+                    <h2>Lista de mensagens</h2>
                 </header>
                 <hr>
                 <table class="table table-bordered">
                     <thead>
-                        <tr id="titulo">
+                        <tr class="table-active">
                             <th scope="col">Nome</td>
                             <th scope="col">Email</td>
-                            <th scope="col">Telefone</td>
                             <th scope="col">Assunto</td>
+                            <th scope="col" >Telefone</td>
                             <th scope="col" colspan="2">Mensagem</td>
                         </tr>
                     </thead>
                     <tbody>
+                        <!--LISTAR MSGs DOS CLIENTES NO BANCO DE DADOS-->
                         <?php
                             $dados = $p->buscarMensagens();
                             if(count($dados) > 0)
@@ -148,18 +203,28 @@ $p = new Cliente("127.0.0.1","3308","contato_clientes", "root","");
                                         }
                                     }
                         ?>
-                                    <td><a class="btn btn-secondary" href="">Editar</a><a class="btn btn-danger" href="">Excluir</a></td>
+                                    <td class="btn_list">
+                                        <a class="btn btn-secondary" href="index.php?id_up=<?php echo $dados[$i]['id'];?>">Editar</a>
+                                        <a class="btn btn-danger" href="index.php?id=<?php echo $dados[$i]['id'];?>">Excluir</a>
+                                    </td>
                         <?php
                                     echo "</tr>";
                                 }
-                            }else {
-                                echo "Ainda não há pessoas cadastradas!";
+                            }
+                            else 
+                            {   
+                                ?>
+                                <div class="aviso">
+                                    <h5>* Ainda não há mensagens cadastradas!</h5>
+                                </div>
+                                <?php
                             }
                         ?>
                     </tbody>
                 </table>
             </section>
         </div>
+
         <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -177,7 +242,17 @@ $p = new Cliente("127.0.0.1","3308","contato_clientes", "root","");
         ></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+        
         <script src="funcoes.js"></script>
     </body>
 </html>    
 
+<!-- Excluir mensagem de contato do cliente quando o parâmetro existir -->
+<?php
+    if(isset($_GET['id']))
+    {
+        $id_cliente = addslashes($_GET['id']);
+        $p->excluirMensagem($id_cliente);
+        echo "<script language='javascript'>window.location.href='index.php';</script>";
+    }
+?>

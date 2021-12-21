@@ -50,14 +50,51 @@ body {
     transition: ease-in-out 1s;
 }
 
-.msg {
-    margin: 1rem 0;
-}
-
 a.btn {
     margin: 5px 5px;
 }
 
+#btn_sub {
+    float: right;
+}
+
+.btn_view.hidden {
+    display: none;
+}
+
+.btn_hidden.hidden {
+    display: none;
+}
+
+/* LIST */
 #lista_contato.hidden {
     display: none;
+}
+.table td,
+.table th {
+    text-align: left;
+    vertical-align: middle;
+    padding: 0.5rem;
+}
+
+td.btn_list {
+    text-align: center;
+}
+
+/* ALERT */
+
+.aviso {
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    color: #3f3f3e;
+}
+
+.aviso h5 {
+    font-weight: 700;
+}
+
+.aviso img {
+    margin-right: 0.5rem;
+    width: 2.5rem;
 }
